@@ -1,12 +1,8 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express'),
   MySQLSessionStore = require('connect-mysql-session')(express);;
 var routes = require('./routes/main');
 var login = require('./routes/login');
+var upload = require('./routes/upload');
 var http = require('http');
 var path = require('path');
 
@@ -46,6 +42,8 @@ app.get('/', loginCheck, routes.index);
 app.get('/login', login.login);
 app.post('/login_result', login.result);
 app.post('/register_result', login.register);
+app.get('/upload', loginCheck, upload.upload);
+app.post('/upload', loginCheck, upload.upload);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
